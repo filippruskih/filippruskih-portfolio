@@ -6,8 +6,8 @@ const Footer = () => {
     <footer className="footer">
       <p>Connect with me:</p>
       <div className="socials">
-        <a href="https://instagram.com/yourprofile" target="_blank" rel="noreferrer">Instagram</a>
-        <a href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="https://instagram.com/filippruskih" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/in/filippruskih/" target="_blank" rel="noreferrer">LinkedIn</a>
         <a href="mailto:filippruskih@gmail.com">Email</a>
       </div>
       <p className="credit">© {new Date().getFullYear()} Filipp Ruskih</p>

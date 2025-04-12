@@ -1,38 +1,70 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
+import React, { useState, useEffect } from 'react';
+import { storage } from '../firebase';
+import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import './PortfolioGrid.css';
-
-const imageData = {
-  2024: {
-    runway: ['/images/2024/runway/portfolio4.jpg'],
-    editorial: ['/images/2024/editorial/portfolio3.jpg'],
-  },
-  2025: {
-    runway: ['/images/2025/runway/portfolio1.jpg', '/images/2025/runway/portfolio2.jpg', '/images/2025/runway/portfolio3.jpg', '/images/2025/runway/portfolio3.jpg', '/images/2025/runway/portfolio3.jpg'],
-    editorial: ['/images/2025/editorial/portfolio2.jpg'],
-  },
-};
 
 const PortfolioGrid = () => {
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedShoot, setSelectedShoot] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Define years and shoots structure
+  const imageDataStructure = {
+    2024: ['runway'],
+    2025: ['runway', 'editorial'],
+  };
+
+  const years = Object.keys(imageDataStructure);
+  const shoots = selectedYear ? imageDataStructure[selectedYear] : [];
+
+  // Fetch images when year & shoot are selected
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (!selectedYear || !selectedShoot) return;
+
+      setLoading(true);
+      const folderPath = `images/${selectedYear}/${selectedShoot}`;
+      const folderRef = ref(storage, folderPath);
+
+      try {
+        console.log('📁 Fetching from:', folderPath);
+
+        const result = await listAll(folderRef);
+        console.log(`📸 Found ${result.items.length} image(s)`);
+
+        const urls = await Promise.all(
+          result.items.map((itemRef) => getDownloadURL(itemRef))
+        );
+
+        setImageUrls(urls);
+      } catch (error) {
+        console.error('🔥 Error fetching images from Firebase:', error);
+        setImageUrls([]);
+      }
+
+      setLoading(false);
+    };
+
+    fetchImages();
+  }, [selectedYear, selectedShoot]);
 
   const handleYearClick = (year) => {
     if (selectedYear === year) {
       setSelectedYear(null);
       setSelectedShoot(null);
+      setImageUrls([]);
     } else {
       setSelectedYear(year);
       setSelectedShoot(null);
+      setImageUrls([]);
     }
   };
 
   const handleShootClick = (shoot) => {
     setSelectedShoot(prev => (prev === shoot ? null : shoot));
+    if (selectedShoot === shoot) setImageUrls([]); // Toggle off
   };
-
-  const years = Object.keys(imageData);
-  const shoots = selectedYear ? Object.keys(imageData[selectedYear]) : [];
 
   return (
     <section id="portfolio" className="portfolio-grid">
@@ -66,21 +98,26 @@ const PortfolioGrid = () => {
         </div>
       )}
 
-      {/* Images */}
-      {selectedShoot && selectedYear ? (
+      {/* Image Grid */}
+      {loading ? (
+        <p>Loading images...</p>
+      ) : selectedShoot && imageUrls.length > 0 ? (
         <div className="grid">
-          {imageData[selectedYear][selectedShoot].map((src, index) => (
+          {imageUrls.map((url, index) => (
             <div key={index} className="grid-item">
-              <img src={src} alt={`${selectedYear} ${selectedShoot} ${index + 1}`} />
+              <img src={url} alt={`Image ${index + 1}`} />
             </div>
           ))}
         </div>
-      ) : selectedYear && (
-        <p className="select-prompt">Select a shoot to view images from {selectedYear}.</p>
+      ) : selectedShoot ? (
+        <p>No images found for {selectedShoot} in {selectedYear}.</p>
+      ) : selectedYear ? (
+        <p className="select-prompt">Select a shoot to view images.</p>
+      ) : (
+        <p className="select-prompt">Please select a year to view portfolio images.</p>
       )}
     </section>
   );
 };
-
 
 export default PortfolioGrid;
