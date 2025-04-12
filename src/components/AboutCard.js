@@ -4,7 +4,7 @@ import './AboutCard.css';
 const AboutCard = () => {
   return (
     <section id="about" className="about-card">
-      <img src="/public/images/about.jpg" alt="Filipp Ruskih" />
+      <img src="/images/about.jpg" alt="Filipp Ruskih" />
       <div>
         <h2>About Me</h2>
         <p>

@@ -48,3 +48,35 @@ main {
 section {
   margin-bottom: 3rem;
 }
+
+.App {
+  background-color: #fff;
+  color: #111;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.App.dark {
+  background-color: #111;
+  color: #f1f1f1;
+}
+
+.toggle-mode {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #ddd;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.App.dark .toggle-mode {
+  background: #333;
+  color: #fff;
+}
+
