@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-color: #fff;
+  color: #111;
+}
+
+.hero {
+  background-image: url('/public/images/hero.jpg'); /* Add your photo to public/hero.jpg */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #ddd;
+}
+
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+section {
+  margin-bottom: 3rem;
+}

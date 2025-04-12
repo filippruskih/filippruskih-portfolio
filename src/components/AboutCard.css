@@ -1,0 +1,16 @@
+.about-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  text-align: left;
+  max-width: 900px;
+  margin: auto;
+}
+
+.about-card img {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 12px;
+}
