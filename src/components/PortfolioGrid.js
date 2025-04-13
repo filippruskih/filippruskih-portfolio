@@ -25,10 +25,15 @@ const PortfolioGrid = () => {
 
       setLoading(true);
       const folderPath = `images/${selectedYear}/${selectedShoot}`;
+      //const folderPath = `images/2025/runway`;
       const folderRef = ref(storage, folderPath);
 
       try {
         console.log('📁 Fetching from:', folderPath);
+
+        
+        console.log('🧠 selectedYear:', selectedYear);
+        console.log('🧠 selectedShoot:', selectedShoot);
 
         const result = await listAll(folderRef);
         console.log(`📸 Found ${result.items.length} image(s)`);
@@ -62,9 +67,15 @@ const PortfolioGrid = () => {
   };
 
   const handleShootClick = (shoot) => {
-    setSelectedShoot(prev => (prev === shoot ? null : shoot));
-    if (selectedShoot === shoot) setImageUrls([]); // Toggle off
+    if (selectedShoot === shoot) {
+      setSelectedShoot(null);
+      setImageUrls([]);
+    } else {
+      setSelectedShoot(shoot);
+      setImageUrls([]);
+    }
   };
+  
 
   return (
     <section id="portfolio" className="portfolio-grid">
