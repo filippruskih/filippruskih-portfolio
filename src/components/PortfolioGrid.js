@@ -4,115 +4,79 @@ import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import './PortfolioGrid.css';
 
 const PortfolioGrid = () => {
-  const [selectedYear, setSelectedYear] = useState(null);
-  const [selectedShoot, setSelectedShoot] = useState(null);
+  const [folders, setFolders] = useState([]); // auto-detected folders
+  const [selectedFolder, setSelectedFolder] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Define years and shoots structure
-  const imageDataStructure = {
-    2024: ['runway'],
-    2025: ['runway', 'editorial'],
-  };
+  // 🔁 Get folders under /images/
+  useEffect(() => {
+    const fetchFolders = async () => {
+      const baseRef = ref(storage, 'images');
+      try {
+        const result = await listAll(baseRef);
+        const years = result.prefixes;
 
-  const years = Object.keys(imageDataStructure);
-  const shoots = selectedYear ? imageDataStructure[selectedYear] : [];
+        const subfolderPromises = years.map(async (yearRef) => {
+          const shoots = await listAll(yearRef);
+          return shoots.prefixes.map((shootRef) => shootRef.fullPath); // e.g. images/2025/runway
+        });
 
-  // Fetch images when year & shoot are selected
+        const subfoldersNested = await Promise.all(subfolderPromises);
+        const allSubfolders = subfoldersNested.flat();
+        setFolders(allSubfolders);
+      } catch (error) {
+        console.error("🔥 Error fetching folders:", error);
+      }
+    };
+
+    fetchFolders();
+  }, []);
+
+  // 🔁 Fetch images when a folder is selected
   useEffect(() => {
     const fetchImages = async () => {
-      if (!selectedYear || !selectedShoot) return;
+      if (!selectedFolder) return;
 
       setLoading(true);
-      const folderPath = `images/${selectedYear}/${selectedShoot}`;
-      //const folderPath = `images/2025/runway`;
-      const folderRef = ref(storage, folderPath);
-
+      const folderRef = ref(storage, selectedFolder);
       try {
-        console.log('📁 Fetching from:', folderPath);
-
-        
-        console.log('🧠 selectedYear:', selectedYear);
-        console.log('🧠 selectedShoot:', selectedShoot);
-
         const result = await listAll(folderRef);
-        console.log(`📸 Found ${result.items.length} image(s)`);
-
         const urls = await Promise.all(
           result.items.map((itemRef) => getDownloadURL(itemRef))
         );
-
         setImageUrls(urls);
       } catch (error) {
-        console.error('🔥 Error fetching images from Firebase:', error);
+        console.error('🔥 Error fetching images:', error);
         setImageUrls([]);
       }
-
       setLoading(false);
     };
 
     fetchImages();
-  }, [selectedYear, selectedShoot]);
-
-  const handleYearClick = (year) => {
-    if (selectedYear === year) {
-      setSelectedYear(null);
-      setSelectedShoot(null);
-      setImageUrls([]);
-    } else {
-      setSelectedYear(year);
-      setSelectedShoot(null);
-      setImageUrls([]);
-    }
-  };
-
-  const handleShootClick = (shoot) => {
-    if (selectedShoot === shoot) {
-      setSelectedShoot(null);
-      setImageUrls([]);
-    } else {
-      setSelectedShoot(shoot);
-      setImageUrls([]);
-    }
-  };
-  
+  }, [selectedFolder]);
 
   return (
     <section id="portfolio" className="portfolio-grid">
       <h2>Portfolio</h2>
 
-      {/* Year Tabs */}
+      {/* Folder Tabs */}
       <div className="tabs">
-        {years.map((year) => (
+        {folders.map((folder) => (
           <button
-            key={year}
-            className={selectedYear === year ? 'active' : ''}
-            onClick={() => handleYearClick(year)}
+            key={folder}
+            className={selectedFolder === folder ? 'active' : ''}
+            onClick={() => setSelectedFolder(prev => (prev === folder ? null : folder))}
           >
-            {year}
+            {folder.replace('images/', '').replace('/', ' - ')}
           </button>
         ))}
       </div>
 
-      {/* Shoot Tabs */}
-      {selectedYear && (
-        <div className="sub-tabs">
-          {shoots.map((shoot) => (
-            <button
-              key={shoot}
-              className={selectedShoot === shoot ? 'active' : ''}
-              onClick={() => handleShootClick(shoot)}
-            >
-              {shoot.charAt(0).toUpperCase() + shoot.slice(1)}
-            </button>
-          ))}
-        </div>
-      )}
-
       {/* Image Grid */}
       {loading ? (
         <p>Loading images...</p>
-      ) : selectedShoot && imageUrls.length > 0 ? (
+      ) : selectedFolder && imageUrls.length > 0 ? (
         <div className="grid">
           {imageUrls.map((url, index) => (
             <div key={index} className="grid-item">
@@ -120,12 +84,10 @@ const PortfolioGrid = () => {
             </div>
           ))}
         </div>
-      ) : selectedShoot ? (
-        <p>No images found for {selectedShoot} in {selectedYear}.</p>
-      ) : selectedYear ? (
-        <p className="select-prompt">Select a shoot to view images.</p>
+      ) : selectedFolder ? (
+        <p>No images found in <strong>{selectedFolder}</strong>.</p>
       ) : (
-        <p className="select-prompt">Please select a year to view portfolio images.</p>
+        <p className="select-prompt">Please select a folder to view portfolio images.</p>
       )}
     </section>
   );

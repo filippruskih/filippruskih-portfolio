@@ -3,13 +3,26 @@ import './AboutCard.css';
 
 const AboutCard = () => {
   return (
-    <section id="about" className="about-card">
-      <img src="/images/about.jpg" alt="Filipp Ruskih" />
-      <div>
-        <h2>About Me</h2>
-        <p>
-          I'm a professional model specializing in editorial, fashion, and commercial work. I love working with creatives and bringing ideas to life through visual storytelling.
-        </p>
+    <section className="about-card">
+      <h2>About</h2>
+      <p>
+        Filipp Ruskih is a model and creative based in Ireland. With a strong visual presence and a modern editorial look, he brings energy and professionalism to every shoot, runway, and concept.
+      </p>
+
+      <div className="measurements">
+        <h3>Current Measurements</h3>
+        <ul>
+          <li><strong>Height:</strong> 189 cm / 6ft 3in</li>
+          <li><strong>Chest:</strong> - cm</li>
+          <li><strong>Waist:</strong> - cm</li>
+          <li><strong>Hips:</strong> - cm</li>
+          <li><strong>Inseam:</strong> - cm</li>
+          <li><strong>Neck:</strong> - cm</li>
+          <li><strong>Shoulders:</strong> - cm</li>
+          <li><strong>Leg Length:</strong> - cm</li>
+          <li><strong>Shoe Size:</strong> 43 / 9 UK</li>
+          <li><strong>Weight:</strong> 85 KG</li>
+        </ul>
       </div>
     </section>
   );
