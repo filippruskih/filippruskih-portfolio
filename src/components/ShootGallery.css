@@ -1,0 +1,23 @@
+.shoot-gallery {
+    padding: 2rem;
+  }
+  .back-button {
+    background: none;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .grid-item img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  

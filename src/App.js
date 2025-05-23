@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
-import PortfolioGrid from './components/PortfolioGrid';
+import PortfolioOverview from './components/PortfolioOverview';
+import ShootGallery from './components/ShootGallery';
 import AboutCard from './components/AboutCard';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState(null); // to toggle view
 
   const toggleMode = () => {
     setDarkMode(!darkMode);
@@ -27,7 +29,14 @@ function App() {
       </header>
 
       <main>
-        <PortfolioGrid />
+        <section id="portfolio">
+          {selectedFolder ? (
+            <ShootGallery folderPath={selectedFolder} goBack={() => setSelectedFolder(null)} />
+          ) : (
+            <PortfolioOverview onSelect={setSelectedFolder} />
+          )}
+        </section>
+
         <AboutCard />
         <ContactForm />
         <Footer />
