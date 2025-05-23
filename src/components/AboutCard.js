@@ -14,12 +14,10 @@ const AboutCard = () => {
         <ul>
           <li><strong>Height:</strong> 189 cm / 6ft 3in</li>
           <li><strong>Chest:</strong> - cm</li>
-          <li><strong>Waist:</strong> - cm</li>
-          <li><strong>Hips:</strong> - cm</li>
-          <li><strong>Inseam:</strong> - cm</li>
-          <li><strong>Neck:</strong> - cm</li>
-          <li><strong>Shoulders:</strong> - cm</li>
-          <li><strong>Leg Length:</strong> - cm</li>
+          <li><strong>Waist:</strong> 32</li>
+          <li><strong>Leg Length:</strong> 34</li>
+          <li><strong>Neck:</strong> 15.5</li>
+          <li><strong>Suit Jacket:</strong> 40L</li>
           <li><strong>Shoe Size:</strong> 43 / 9 UK</li>
           <li><strong>Weight:</strong> 85 KG</li>
         </ul>

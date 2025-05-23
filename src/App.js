@@ -7,17 +7,23 @@ import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
 function App() {
-  const [selectedFolder, setSelectedFolder] = useState(null); // to toggle view
+  const [selectedFolder, setSelectedFolder] = useState(null);
 
   return (
     <div className="App">
-      <header className="hero">
-        <div className="overlay">
-          <h1>Filipp Ruskih</h1>
-          <p>Model | Creative | Visionary</p>
-          <a href="#portfolio" className="cta-button">View Portfolio</a>
+      <nav className="navbar">
+        <div className="navbar-content">
+          <div className="navbar-brand">
+            <h1>Filipp Ruskih</h1>
+            <p className="tagline">Model | Creative | Visionary</p>
+          </div>
+          <ul className="navbar-links">
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
-      </header>
+      </nav>
 
       <main>
         <section id="portfolio">
@@ -28,8 +34,14 @@ function App() {
           )}
         </section>
 
-        <AboutCard />
-        <ContactForm />
+        <section id="about">
+          <AboutCard />
+        </section>
+
+        <section id="contact">
+          <ContactForm />
+        </section>
+
         <Footer />
       </main>
     </div>

@@ -27,10 +27,12 @@ const ShootGallery = ({ folderPath, goBack }) => {
 
   if (loading) return <p>Loading shoot...</p>;
 
+  const gridClass = images.length === 1 ? 'grid single-item' : 'grid';
+
   return (
     <div className="shoot-gallery">
       <button onClick={goBack} className="cta-button">← Back to Overview</button>
-      <div className="grid">
+      <div className={gridClass}>
         {images.map((url, idx) => (
           <div key={idx} className="grid-item">
             <img src={url} alt={`Image ${idx + 1}`} />
