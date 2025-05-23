@@ -1,13 +1,7 @@
 .shoot-gallery {
     padding: 2rem;
   }
-  .back-button {
-    background: none;
-    color: #fff;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-  }
+ 
   .grid {
     display: grid;
     gap: 1rem;
@@ -19,5 +13,21 @@
     max-height: 500px;
     object-fit: cover;
     border-radius: 12px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #ddd;
   }
   

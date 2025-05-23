@@ -55,11 +55,6 @@ section {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App.dark {
-  background-color: #111;
-  color: #f1f1f1;
-}
-
 .toggle-mode {
   position: fixed;
   top: 20px;
@@ -75,8 +70,4 @@ section {
   transition: background-color 0.3s ease;
 }
 
-.App.dark .toggle-mode {
-  background: #333;
-  color: #fff;
-}
 

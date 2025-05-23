@@ -7,19 +7,10 @@ import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState(null); // to toggle view
 
-  const toggleMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
-    <div className={darkMode ? 'App dark' : 'App'}>
-      <button className="toggle-mode" onClick={toggleMode}>
-        {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
-      </button>
-
+    <div className="App">
       <header className="hero">
         <div className="overlay">
           <h1>Filipp Ruskih</h1>

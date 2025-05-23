@@ -29,7 +29,7 @@ const ShootGallery = ({ folderPath, goBack }) => {
 
   return (
     <div className="shoot-gallery">
-      <button onClick={goBack} className="back-button">← Back to Overview</button>
+      <button onClick={goBack} className="cta-button">← Back to Overview</button>
       <div className="grid">
         {images.map((url, idx) => (
           <div key={idx} className="grid-item">
