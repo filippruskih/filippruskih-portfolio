@@ -7,6 +7,6 @@ test('app renders', () => {
 
 test('renders portfolio name', () => {
   render(<App />);
-  const textElement = screen.getByText(/filipp/i);
-  expect(textElement).toBeInTheDocument();
+  const textElements = screen.getAllByText(/filipp/i);
+  expect(textElements.length).toBeGreaterThan(0);
 });
