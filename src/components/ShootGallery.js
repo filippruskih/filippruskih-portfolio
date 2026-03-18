@@ -35,7 +35,7 @@ const ShootGallery = ({ folderPath, goBack }) => {
       <div className={gridClass}>
         {images.map((url, idx) => (
           <div key={idx} className="grid-item">
-            <img src={url} alt={`Image ${idx + 1}`} />
+            <img src={url} alt={`Shoot ${idx + 1}`} />
           </div>
         ))}
       </div>
