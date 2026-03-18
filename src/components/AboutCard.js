@@ -6,7 +6,7 @@ const AboutCard = () => {
     <section className="about-card">
       <h2>About</h2>
       <p>
-        Filipp Ruskih is a model and creative based in Ireland. With a strong visual presence and a modern editorial look, he brings energy and professionalism to every shoot, runway, and concept.
+        Filipp Ruskih is a software engineer, model and creative based in Australia. With a strong visual presence and a modern editorial look, he brings energy and professionalism to every shoot, runway, and concept.
       </p>
 
       <div className="measurements">
