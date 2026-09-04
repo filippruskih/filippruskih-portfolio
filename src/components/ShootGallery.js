@@ -6,10 +6,12 @@ import './ShootGallery.css';
 const ShootGallery = ({ folderPath, goBack }) => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
+        setError(false);
         const folderRef = ref(storage, folderPath);
         const result = await listAll(folderRef);
         const urls = await Promise.all(
@@ -18,6 +20,7 @@ const ShootGallery = ({ folderPath, goBack }) => {
         setImages(urls);
       } catch (error) {
         console.error('Error loading shoot:', error);
+        setError(true);
       }
       setLoading(false);
     };
@@ -26,6 +29,15 @@ const ShootGallery = ({ folderPath, goBack }) => {
   }, [folderPath]);
 
   if (loading) return <p>Loading shoot...</p>;
+
+  if (error) {
+    return (
+      <div className="shoot-gallery">
+        <button onClick={goBack} className="cta-button">← Back to Overview</button>
+        <p>Couldn't load this shoot. Please try again.</p>
+      </div>
+    );
+  }
 
   const gridClass = images.length === 1 ? 'grid single-item' : 'grid';
 

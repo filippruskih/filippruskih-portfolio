@@ -18,10 +18,12 @@ const getResizedPath = (fullPath) => {
 const PortfolioOverview = ({ onSelect }) => {
   const [folders, setFolders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchFolders = async () => {
       try {
+        setError(false);
         const baseRef = ref(storage, 'images/');
         const yearResult = await listAll(baseRef);
 
@@ -59,6 +61,7 @@ const PortfolioOverview = ({ onSelect }) => {
         setFolders(folderResults.filter(Boolean));
       } catch (error) {
         console.error('Error loading folders:', error);
+        setError(true);
       }
       setLoading(false);
     };
@@ -67,6 +70,14 @@ const PortfolioOverview = ({ onSelect }) => {
   }, []);
 
   if (loading) return <p>Loading portfolio...</p>;
+
+  if (error) {
+    return (
+      <div className="portfolio-error">
+        <p>Couldn't load the portfolio. Please refresh the page.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="portfolio-overview">

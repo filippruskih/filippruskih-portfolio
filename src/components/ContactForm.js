@@ -9,6 +9,12 @@ const ContactForm = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
+    if (form.current.website.value) {
+      // Honeypot field was filled in — silently drop the likely-bot submission.
+      form.current.reset();
+      return;
+    }
+
     emailjs.sendForm(
       'service_v63qa9g',        // ✅ your Service ID
       'template_bowsomq',       // ✅ your Template ID
@@ -29,6 +35,14 @@ const ContactForm = () => {
     <section className="contact-form">
       <h2>Contact Me</h2>
       <form ref={form} onSubmit={sendEmail}>
+        <input
+          type="text"
+          name="website"
+          className="hp-field"
+          tabIndex="-1"
+          autoComplete="off"
+          aria-hidden="true"
+        />
         <input type="text" name="from_name" placeholder="Your Name" required />
         <input type="email" name="user_email" placeholder="Your Email" required />
         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
