@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import PortfolioOverview from './components/PortfolioOverview';
 import ShootGallery from './components/ShootGallery';
+import BookingForm from './components/BookingForm';
+import InstagramFeed from './components/InstagramFeed';
 import AboutCard from './components/AboutCard';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
@@ -19,6 +21,8 @@ function App() {
           </div>
           <ul className="navbar-links">
             <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#booking">Book a Shoot</a></li>
+            <li><a href="#instagram">Instagram</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -32,6 +36,14 @@ function App() {
           ) : (
             <PortfolioOverview onSelect={setSelectedFolder} />
           )}
+        </section>
+
+        <section id="booking">
+          <BookingForm />
+        </section>
+
+        <section id="instagram">
+          <InstagramFeed />
         </section>
 
         <section id="about">
