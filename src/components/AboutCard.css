@@ -49,3 +49,33 @@
   font-weight: 600;
   color: #222;
 }
+
+.comp-card-button {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: 0.8rem 1.5rem;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comp-card-button:hover {
+  background-color: #333;
+}
+
+.comp-card-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.comp-card-status {
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: #c0392b;
+}
